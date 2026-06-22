@@ -19,30 +19,21 @@ export function SiteFooter() {
         <div className="absolute inset-0 bg-gradient-to-t from-black via-black/80 to-transparent" />
       </div>
 
-      <div className="mx-auto grid max-w-7xl gap-10 px-6 md:grid-cols-4 relative z-10">
-        <div>
+      <div className="mx-auto flex max-w-7xl flex-col md:flex-row justify-between gap-10 px-6 relative z-10">
+        <div className="max-w-sm">
           <div className="flex items-center gap-3">
             <img src="/logo.png" alt="Wanderly" className="h-8 w-8 rounded-lg object-cover invert mix-blend-screen" />
             <span className="font-display text-lg font-bold">Wanderly</span>
           </div>
-          <p className="mt-4 max-w-xs text-sm text-white/70">
+          <p className="mt-4 text-sm text-white/70">
             The AI travel planner for people who'd rather be exploring than spreadsheeting.
           </p>
         </div>
-        <FooterCol title="Product" items={[
+        <FooterCol title="Navigation" items={[
+          ["Home", "/"],
           ["Features", "/#features"],
           ["How it works", "/#how"],
-          ["Pricing", "/#"],
-        ]} />
-        <FooterCol title="Company" items={[
-          ["About", "/#"],
-          ["Careers", "/#"],
-          ["Press", "/#"],
-        ]} />
-        <FooterCol title="Legal" items={[
-          ["Privacy", "/#"],
-          ["Terms", "/#"],
-          ["Cookies", "/#"],
+          ["Stories", "/#testimonials"],
         ]} />
       </div>
 
