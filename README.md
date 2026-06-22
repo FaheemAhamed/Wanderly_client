@@ -1,195 +1,186 @@
-# Wanderly - AI Travel Planner
+# Wanderly Client - Frontend Web Application
 
-Wanderly is a modern, AI-powered travel planning application that automatically generates comprehensive, meticulously crafted day-by-day itineraries based on user destinations, interests, and constraints. It uses the Gemini AI engine combined with external weather and image APIs to bring locations to life.
-
-## Core Features
-- **Generative Itineraries**: Enter a destination, dates, and interests to generate a full, mathematically optimized daily timeline.
-- **Cinematic UI/UX**: Premium scroll animations, glassmorphic elements, bento grids, and dynamic layout components powered by GSAP and Tailwind CSS.
-- **Real-Time Context**: Integrates live atmospheric forecasts and geographical topology mapping for every trip.
-- **Authentication**: Seamless secure onboarding with email/password and Google OAuth via Firebase.
-- **Responsive Architecture**: Fully optimized for mobile, tablet, and desktop environments.
+Wanderly Client is the client-facing user interface for the Wanderly AI Travel Planner. Built on Next.js 15, React 19, Tailwind CSS v4, and GSAP, it features modern glassmorphism, fluid interactive animations, a custom itinerary dashboard, and a premium editorial PDF export system.
 
 ---
 
-## Tech Stack
+## 🚀 Project Overview
 
-### Client (Frontend)
-- **Next.js 14** (React Framework using App Router)
-- **TypeScript** 
-- **Tailwind CSS v4** (Utility-first styling)
-- **GSAP & @gsap/react** (High-performance scroll and layout animations)
-- **Radix UI / Shadcn UI** (Unstyled, accessible component primitives)
-- **Lucide & Phosphor Icons** (Iconography)
-- **Zod & React Hook Form** (Form state and validation)
-- **Firebase Auth** (Client-side Google Authentication)
+The client application provides users with an immersive, visual workspace to plan trips. It allows travelers to register secure accounts, connect via Google OAuth, construct new itineraries through an options wizard, and interactively adjust plans. 
 
-### Server (Backend)
-- **Node.js & Express.js** (REST API framework)
-- **MongoDB & Mongoose** (NoSQL Database & Object Data Modeling)
-- **@google/generative-ai** (Gemini AI for itinerary generation)
-- **Cloudinary** (Image management)
-- **Axios** (External API fetching)
-- **JWT & bcryptjs** (Authentication & password hashing)
+### Key Capabilities
+- **Cinematic Landing Page**: Micro-animations, bento grids, and layout transformations powered by GSAP.
+- **Dynamic Timeline View**: Interactive itinerary panels displaying daily timelines, transit metrics (mode, duration), and estimated costs in multiple currencies (INR, local, USD).
+- **Interactive Weather-Aware Checklists**: Dynamic check/uncheck packing items automatically curated for the location's climate.
+- **Granular Customization**: Interactive modals to add new activities manually or trigger selective day regeneration using custom prompt directions.
+- **Editorial Textbook PDF View**: Transforms the layout into a structured, print-ready black-and-white booklet using CSS print stylesheets.
 
 ---
 
-## Getting Started (Local Setup)
+## 🛠️ Chosen Tech Stack & Justifications
+
+| Technology | Purpose | Justification |
+| :--- | :--- | :--- |
+| **Next.js 15 (React 19)** | Base Framework | Optimized App Router routing, fast client-side rendering, and image optimization tools. |
+| **TypeScript** | Static Type Safety | Hardens API data integration interfaces for itineraries, budget parameters, and user sessions. |
+| **Tailwind CSS v4** | UI Styling Framework | Premium, utility-first design primitives allowing fast styling of custom responsive bento grids and glassmorphic layers. |
+| **GSAP & @gsap/react** | Motion & Timelines | Industry standard for high-performance layout shifts, scrub reveals, and stagger effects. |
+| **Lenis Scroll** | Physics-based Scrolling | Restructures default scrolling to behave with smooth, inertial fluid dynamics for landing page storytelling. |
+| **Firebase Auth (Client SDK)** | Authentication | Provides secure, offloaded OAuth integration (Google Sign-In Popups) directly in client pages. |
+| **Zod & React Hook Form** | Form States & Validation | Type-safe form validation preventing incorrect client payloads. |
+
+---
+
+## 📐 High-Level Architecture Explanation
+
+The client is built using Next.js App Router folders. It communicates with the backend API statelessly:
+
+```
+[User Browser]
+      │
+      ├─► [Lenis Scroll & GSAP]  ◄── Controls layout physics and visuals
+      ├─► [Firebase Auth Client] ◄── Triggers Google OAuth sign-in flow
+      │
+  [React Views & UI Components]
+      │
+      ├─► [trips-store.ts] (Global Session Storage)
+      │
+  [Axios HTTP Client (api.ts)]
+      │
+      └─► (HTTPS Request / JWT Bearer Token) ──► [Wanderly Server API]
+```
+
+1. **State & Store (`/src/lib/trips-store.ts`)**: Tracks active user sessions. On load, stores verified user data and syncs active JWT tokens.
+2. **Axios Client Interceptor (`/src/lib/api.ts`)**: Custom Axios client that checks client `localStorage` for the active token and automatically appends it to all outbound headers under `Authorization: Bearer <token>`.
+3. **Responsive UI Elements (`/src/components/ui`)**: High-performance, accessible Radix-ui components customized to fit Wanderly's dark-themed aesthetic.
+4. **Export Engine**: Uses custom CSS `@media print` queries to hide navigation headers and render a secondary, textbook-style high-fidelity print document when `window.print()` is executed.
+
+---
+
+## 🔐 Authentication & Authorization Approach
+
+Authentication flow is handled on the client via two methods:
+1. **Email & Password**: Custom client registration and login forms with error handling validated with Zod.
+2. **Google OAuth via Firebase**: The client calls Firebase Auth's `signInWithPopup` using Google Auth provider. On success, Firebase returns user credentials. The client passes this token metadata (`email`, `name`, `photoURL`) to the backend API (`/api/auth/google`) which verifies the login and returns a signed 7-day JWT.
+3. **Session Interception**: Client checks local storage on startup. If the JWT is present, access is granted to the private `/dashboard` pages. If a protected route is requested without a token, the user is redirected to the `/login` screen.
+
+---
+
+## 🤖 AI Agent Design & Purpose
+
+Wanderly Client leverages the backend's structured JSON generative capabilities by mapping parameters into detailed timelines:
+- **Interactive Configuration Wizard**: Renders selections for duration, budget constraints, and personal interests, sending these as payload criteria.
+- **Dynamic Corrections Controller**: Instead of forcing the user to rewrite entire trips, the client exposes a "Regenerate Day" option. A user types adjustments in plain English, and the client communicates the update to the server's day regeneration service, seamlessly refreshing that single timeline block.
+
+---
+
+## 🎨 Creative & Custom Features
+
+### 1. Dual-Layout Editorial PDF Printing Engine
+The application implements custom CSS print stylesheets (`print:block` and `print:hidden`). When clicking **Export PDF**, `window.print()` is invoked. The client hides all buttons, dark-mode backgrounds, and scrollbars, and formats the trip itinerary into a classic, two-column black-and-white editorial textbook layout, featuring serif typography, cover pages, and page breaks.
+
+### 2. Multi-Currency Conversion Display
+The UI reads AI-generated rates from the server. It calculates and renders prices in both Indian Rupee (INR) and the trip destination's local currency symbol (e.g. Yen `¥`, Euro `€`) side-by-side:
+```typescript
+const formatCurrency = (usdVal: number) => {
+  const usdToINR = trip.usdToINRRate || 83.5;
+  const usdToLocal = trip.usdToLocalRate || 1;
+  const inrVal = Math.round(usdVal * usdToINR);
+  const localVal = Math.round(usdVal * usdToLocal);
+  return `₹${inrVal.toLocaleString("en-IN")} / ${symbol}${localVal.toLocaleString()}`;
+};
+```
+
+---
+
+## ⚠️ Known Limitations
+
+- **Simulated Navigation**: Coordinates and transit details are displayed sequentially (e.g., *"Walk (15 mins)"*), but the client does not render interactive mapping paths or live traffic reports.
+- **Client-Side Firebase Dependencies**: Firebase scripts must load fully in the browser to permit Google Login authentication.
+
+---
+
+## ⚙️ Setup & Installation (Local & Deployed)
 
 ### Prerequisites
-- Node.js (v18+)
-- MongoDB instance (Atlas or local)
-- Google Gemini API Key
-- Firebase Project setup
+- Node.js (v18 or higher)
+- Firebase Project (to obtain API credentials for client-side Auth)
+- Active Wanderly Backend API running locally or on a cloud server
 
-### Installation
-1. Clone the repository.
-2. Install client dependencies: `cd client && npm install`
-3. Install server dependencies: `cd server && npm install`
-4. Setup environment variables in `/client/.env` and `/server/.env`
-5. Run the development server:
-   - Backend: `cd server && npm run dev`
-   - Frontend: `cd client && npm run dev`
+### Local Installation
+1. Navigate to the client root:
+   ```bash
+   cd Wanderly_client-main
+   ```
+2. Install npm dependencies:
+   ```bash
+   npm install
+   ```
+3. Create a `.env` file in the root of the client directory:
+   ```env
+   NEXT_PUBLIC_FIREBASE_API_KEY=your_firebase_api_key
+   NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+   NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_firebase_project_id
+   NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+   NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_firebase_sender_id
+   NEXT_PUBLIC_FIREBASE_APP_ID=your_firebase_app_id
+   NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_firebase_measurement_id
+   
+   NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
+   ```
+4. Start the Next.js development server:
+   ```bash
+   npm run dev
+   ```
+5. Open your browser and navigate to: `http://localhost:3000`
 
----
-
-## Folder Structure & File Explanations
-
-The repository is organized into a monorepo style with two main directories: `/client` and `/server`.
-
-### `/client` (Frontend Application)
-
-#### Configuration & Root Files
-- **`package.json` & `package-lock.json`**: NPM dependencies and script definitions.
-- **`next.config.ts`**: Configuration for Next.js build environment and image domains.
-- **`tsconfig.json`**: TypeScript compiler configuration and path aliases (`@/*`).
-- **`postcss.config.mjs`**: Configuration for PostCSS (required for Tailwind).
-- **`eslint.config.mjs`**: Configuration for the ESLint linter.
-- **`vercel.json`**: Deployment rules and rewrites for Vercel.
-- **`next-env.d.ts`**: TypeScript declarations for Next.js types.
-- **`.env`**: Local environment variables for the frontend.
-
-#### `/client/public` (Static Assets)
-- **`logo.webp`**: The main Wanderly application logo.
-- **`hero-bg.webm`**: Optional video background asset.
-- **`/assets/*.webp`**: Pre-compressed webp stock imagery used for visual flair on landing pages, auth pages, and generic trip generation backgrounds (e.g., `tokyo.webp`, `amalfi.webp`, `space-earth.webp`, `user0.webp`, etc.).
-
-#### `/client/src/app` (Next.js App Router)
-- **`globals.css`**: Global stylesheet including Tailwind directives, root CSS variables for theme colors, and custom animation keyframes (like `marquee`).
-- **`layout.tsx`**: The root HTML layout wrapping the entire application. Configures the `Outfit` and `Inter` fonts, and wraps children in the `ThemeProvider`.
-- **`page.tsx`**: The main public landing page. Contains the cinematic hero section, the GSAP `ScrubbingTextReveal`, the `Features` bento grid, and the `HorizontalAccordions`.
-- **`favicon.ico`**: Browser tab icon.
-- **`/login/page.tsx`**: The authentication page for returning users. Features a dynamic split-screen layout with form and image banner.
-- **`/register/page.tsx`**: The sign-up page for new users.
-- **`/dashboard`**: Protected routes area requiring an active session.
-  - **`layout.tsx`**: Shared layout rendering the dashboard navigation header.
-  - **`page.tsx`**: Main dashboard view. Shows the form to generate a new itinerary and renders existing `TripCard` components.
-  - **`/profile/page.tsx`**: User profile management and settings UI.
-  - **`/trip/[id]/page.tsx`**: Detailed dynamic view of a generated itinerary. Parses and renders the AI-generated JSON days and activities.
-
-#### `/client/src/components` (React Components)
-- **`site-nav.tsx`**: The main public navigation bar. Includes scroll-spy logic, the mobile hamburger menu morph animation, and the user avatar dropdown.
-- **`site-footer.tsx`**: The public footer containing the animated GSAP "WANDERLY" text stagger effect, a central Call-to-Action, and navigation links.
-- **`trip-card.tsx`**: A display card for summarizing an itinerary on the dashboard (shows title, dates, and background image).
-- **`theme-provider.tsx`**: Wraps the app in `next-themes` logic for Dark/Light mode switching.
-- **`theme-toggle.tsx`**: A button component to toggle the active theme.
-- **`smooth-scrolling.tsx`**: Implements the `Lenis` smooth scroll wrapper for premium scrolling physics on the landing page.
-- **`scroll-reveal.tsx`**: A utility wrapper to trigger GSAP fade-in animations as elements enter the viewport.
-
-#### `/client/src/components/ui` (Shadcn UI Primitives)
-These files are highly customizable, accessible base components built on Radix UI and styled with Tailwind.
-- **`accordion.tsx`**: Vertical collapsible accordion panels.
-- **`alert-dialog.tsx`**: High-priority modal dialogs requiring user confirmation.
-- **`alert.tsx`**: Callout boxes for displaying important messages.
-- **`aspect-ratio.tsx`**: Container maintaining a specific responsive aspect ratio.
-- **`avatar.tsx`**: User profile picture display with automatic text fallback.
-- **`badge.tsx`**: Small visual indicators or status labels.
-- **`breadcrumb.tsx`**: Navigational breadcrumb trails.
-- **`button.tsx`**: Primary interactive button element with various size and style variants.
-- **`calendar.tsx`**: Date picker calendar UI.
-- **`card.tsx`**: A styled container with a header, content, and footer sections.
-- **`carousel.tsx`**: Horizontal scrolling slider component.
-- **`chart.tsx`**: Data visualization charting component.
-- **`checkbox.tsx`**: Accessible checkbox input.
-- **`collapsible.tsx`**: Expand/collapse container.
-- **`command.tsx`**: Command palette / combobox interface.
-- **`context-menu.tsx`**: Right-click context menus.
-- **`dialog.tsx`**: Standard modal overlay windows.
-- **`drawer.tsx`**: Mobile-friendly bottom sheet drawer overlays.
-- **`dropdown-menu.tsx`**: Click-triggered dropdown menus (used for the user avatar menu).
-- **`form.tsx`**: React Hook Form wrapper components for standardized form layouts.
-- **`hover-card.tsx`**: Popovers triggered by hovering over an element.
-- **`input-otp.tsx`**: One-time-password input fields.
-- **`input.tsx`**: Standard text input fields.
-- **`label.tsx`**: Accessible form labels.
-- **`menubar.tsx`**: Desktop-style top menu bars.
-- **`navigation-menu.tsx`**: Complex multi-level navigation dropdowns.
-- **`pagination.tsx`**: Page number navigation links.
-- **`popover.tsx`**: Floating popover panels tied to an anchor element.
-- **`progress.tsx`**: Progress bars and loading indicators.
-- **`radio-group.tsx`**: Mutually exclusive radio button groups.
-- **`resizable.tsx`**: Resizable pane layouts.
-- **`scroll-area.tsx`**: Custom styled scrollbars.
-- **`select.tsx`**: Styled `<select>` dropdown menus.
-- **`separator.tsx`**: Visual dividing lines (hr).
-- **`sheet.tsx`**: Side-drawer modal overlays.
-- **`sidebar.tsx`**: Application sidebar layout components.
-- **`skeleton.tsx`**: Loading state placeholders (used while fetching trips).
-- **`slider.tsx`**: Draggable range sliders.
-- **`sonner.tsx`**: Toast notification system wrapper.
-- **`switch.tsx`**: Boolean toggle switches.
-- **`table.tsx`**: Styled data tables.
-- **`tabs.tsx`**: Tabbed content interfaces.
-- **`textarea.tsx`**: Multi-line text input fields.
-- **`toggle-group.tsx` & `toggle.tsx`**: Interactive toggle buttons.
-- **`tooltip.tsx`**: Hover tooltips explaining UI elements.
-
-#### `/client/src/lib` (Utilities & State)
-- **`api.ts`**: Configures an Axios instance that automatically attaches the JWT auth token from `localStorage` to backend requests.
-- **`firebase.ts`**: Initializes the Firebase SDK specifically for handling Google OAuth popups.
-- **`trips-store.ts`**: Global state management that tracks the current `user` session object across the application.
-- **`utils.ts`**: Contains the `cn()` helper function, which merges standard Tailwind classes dynamically without conflicts using `clsx` and `tailwind-merge`.
-
-#### `/client/src/hooks`
-- **`use-mobile.tsx`**: A custom React hook that attaches a window resize listener to detect if the current viewport is smaller than the desktop breakpoint (used for conditional rendering).
+### Deployed Setup (e.g., Vercel)
+1. Push your code to GitHub (making sure `.env` is excluded in `.gitignore`).
+2. Log into **Vercel** and select **New Project**.
+3. Select your repository. Ensure Next.js is selected as the framework.
+4. Open the environment variables section and input all keys from your local `.env`. Ensure `NEXT_PUBLIC_API_URL` points to your deployed backend production URL.
+5. Click **Deploy**. Vercel will automatically compile, optimize, and launch your client app.
 
 ---
 
-### `/server` (Backend Application)
+## 📂 Detailed Folder Structure & Directory Files
 
-#### Configuration & Root Files
-- **`server.js`**: Application entry point. Connects to the MongoDB database and binds the Express server to the specified port.
-- **`app.js`**: Initializes the Express app, configures global middleware (CORS, body-parser, Morgan logging, Helmet security), and registers the routing modules.
-- **`index.js`**: Legacy or alternative entry script (typically forwards to server.js).
-- **`package.json` & `package-lock.json`**: Backend NPM dependencies and start/dev scripts.
-- **`.env`**: Environment variables (Database URIs, API keys, JWT secrets, port configurations).
-- **`.gitignore`**: Excludes `node_modules` and `.env` from version control.
-
-#### `/server/src/config`
-- **`database.js`**: Mongoose connection logic establishing a secure link to the MongoDB cluster, complete with connection error handling.
-
-#### `/server/src/controllers` (Business Logic)
-- **`auth.controller.js`**: Handles user registration, standard JWT login, password hashing, and the Google OAuth backend flow (registering/logging in the user via Firebase data).
-- **`trip.controller.js`**: Orchestrates the main application feature. Extracts destination/dates from the request, calls the AI service to generate the itinerary JSON, saves it to the DB, and handles fetching trips for the user.
-- **`review.controller.js`**: Handles fetching public testimonials/reviews and submitting new feedback.
-
-#### `/server/src/models` (Database Schemas)
-- **`user.model.js`**: User schema containing email, hashed passwords, name, and profile picture URL.
-- **`trip.model.js`**: Itinerary schema holding the heavily structured JSON array of days, activities, locations, and weather coordinates generated by the AI engine.
-- **`review.model.js`**: Schema for application reviews, ratings, and feedback text.
-
-#### `/server/src/routes` (API Endpoints)
-- **`auth.routes.js`**: Defines endpoints like `POST /api/auth/register`, `POST /api/auth/login`, and `POST /api/auth/google`.
-- **`trip.routes.js`**: Defines endpoints like `POST /api/trips/generate` and `GET /api/trips` (protected routes).
-- **`review.routes.js`**: Defines endpoints like `GET /api/reviews` and `POST /api/reviews`.
-
-#### `/server/src/services` (External Integrations)
-- **`ai.service.js`**: Contains the core prompt engineering logic. Interfaces directly with the `@google/generative-ai` library to prompt Gemini, enforces a strict structured JSON output format, and parses the resulting text into a usable itinerary object.
-- **`image.service.js`**: Responsible for querying external APIs (like Unsplash, Pexels, or Cloudinary) to fetch dynamic high-quality images for specific generated locations.
-- **`weather.service.js`**: Interfaces with external meteorological APIs to fetch forecasts or historical weather averages for the trip locations.
-
-#### `/server/src/middleware`
-- **`auth.middleware.js`**: Express middleware that intercepts requests to protected routes, verifies the JWT access token in the `Authorization` header, and attaches the decoded user ID to the request object.
-- **`error.middleware.js`**: A global error handling middleware interceptor designed to catch unhandled exceptions, format clean API JSON responses, log stack traces, and prevent the server from crashing.
-
-#### `/server/src/utils`
-- **`retry.util.js`**: Contains helper functions implementing exponential backoff. This is used to wrap external API calls (like Gemini or the image service) so they automatically retry gracefully if rate-limited or temporarily unresponsive.
+```
+Wanderly_client-main/
+├── next.config.ts            # Next.js configuration and image CDN domain permission list
+├── tsconfig.json             # TypeScript rules and path aliases (@/*)
+├── postcss.config.mjs        # PostCSS configuration for styling compiles
+├── tailwind.config.ts        # Tailwind configuration (or styling setups)
+├── vercel.json               # Deployment configurations and routing redirects
+├── public/                   # Static browser assets
+│   ├── logo.webp             # Wanderly application logo
+│   └── assets/               # Local WebP background assets (Tokyo, Amalfi, space images)
+├── src/
+│   ├── app/                  # Next.js App Router Root
+│   │   ├── globals.css       # Global styles (Tailwind directives, variables, marquee keyframes)
+│   │   ├── layout.tsx        # Root HTML wrapper (applies Google Fonts Outfit & Inter)
+│   │   ├── page.tsx          # Landing page (Bento grids, GSAP texts, Hero sections)
+│   │   ├── login/            # Authentication Sign-In page
+│   │   ├── register/         # Account Registration page
+│   │   └── dashboard/        # Authenticated Session Dashboard
+│   │       ├── layout.tsx    # Dashboard UI layouts (navigation headers)
+│   │       ├── page.tsx      # User home (itinerary forms, generated list)
+│   │       ├── profile/      # User details editor
+│   │       └── trip/[id]/    # Core trip details, PDF engine, activities editor
+│   ├── components/           # Reusable UI widgets
+│   │   ├── site-nav.tsx      # Main menu navigation header (responsive drawer, user status dropdown)
+│   │   ├── site-footer.tsx   # Footers featuring GSAP stagger effect
+│   │   ├── trip-card.tsx     # Summary widget card for dashboard listings
+│   │   ├── theme-provider.tsx# Light/Dark mode state management provider
+│   │   ├── smooth-scrolling.tsx # Lenis wrapper logic
+│   │   ├── scroll-reveal.tsx # GSAP fade-in utilities
+│   │   └── ui/               # Radix UI customized component primitives (modals, calendars, buttons)
+│   ├── hooks/
+│   │   └── use-mobile.tsx    # Viewport breakpoint listener
+│   └── lib/
+│       ├── api.ts            # Custom Axios instance with authorization interceptor
+│       ├── firebase.ts       # Firebase initialization setup (for Google Sign-In popups)
+│       ├── trips-store.ts    # Global React store for user session states
+│       └── utils.ts          # Tailwind CSS merge utility helpers (cn)
+└── package.json              # Frontend scripts and bundle specifications
+```
