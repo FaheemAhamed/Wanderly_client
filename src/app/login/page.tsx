@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Sparkles, Loader2, Mail, Lock } from "lucide-react";
-import authImg from "@/assets/auth-illustration.jpg";
 import { setUser } from "@/lib/trips-store";
 import { api } from "@/lib/api";
 
@@ -35,7 +34,13 @@ export default function LoginPage() {
   }
 
   return (
-    <AuthShell title="Welcome back" subtitle="Sign in to keep planning your adventures.">
+    <AuthShell 
+      title="Welcome back" 
+      subtitle="Sign in to keep planning your adventures."
+      image="/assets/alps.jpg"
+      quote="Wanderly turned my chaotic travel notes into a polished plan in a single click."
+      author="Sora T., visited 38 countries"
+    >
       <form onSubmit={submit} className="space-y-4">
         <Field icon={Mail} label="Email" type="email" value={email} onChange={setEmail} placeholder="you@wanderly.app" />
         <Field icon={Lock} label="Password" type="password" value={password} onChange={setPassword} placeholder="••••••••" />
@@ -52,15 +57,15 @@ export default function LoginPage() {
   );
 }
 
-export function AuthShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
+export function AuthShell({ title, subtitle, image, quote, author, children }: { title: string; subtitle: string; image: string; quote: string; author: string; children: React.ReactNode }) {
   return (
     <div className="grid h-[100dvh] lg:grid-cols-2 overflow-hidden bg-background">
       <div className="relative hidden overflow-hidden bg-muted lg:block h-full">
-        <img src="/auth-bg-new.png" alt="Travel illustration" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+        <img src={image} alt="Travel destination" className="h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
         <div className="absolute bottom-10 left-10 right-10 rounded-2xl glass p-6 shadow-elegant border border-white/10">
-          <p className="font-display text-xl font-semibold text-white">"Wanderly turned my chaotic travel notes into a polished plan in a single click."</p>
-          <p className="mt-3 text-sm text-white/80">— Sora T., visited 38 countries</p>
+          <p className="font-display text-xl font-semibold text-white">"{quote}"</p>
+          <p className="mt-3 text-sm text-white/80">— {author}</p>
         </div>
       </div>
       <div className="flex flex-col justify-center px-6 py-6 sm:px-12 h-full overflow-y-auto">

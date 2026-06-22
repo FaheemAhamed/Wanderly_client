@@ -37,7 +37,13 @@ export default function RegisterPage() {
   }
 
   return (
-    <AuthShell title="Create your account" subtitle="Plan unlimited trips with AI. Free forever.">
+    <AuthShell 
+      title="Create your account" 
+      subtitle="Plan unlimited trips with AI. Free forever."
+      image="/assets/amalfi.jpg"
+      quote="The AI completely understood the vibe we wanted. It felt like having a local guide in our pocket."
+      author="Marcus P., traveled to Italy"
+    >
       <form onSubmit={submit} className="space-y-4">
         <Field icon={UserIcon} label="Full name" type="text" value={name} onChange={setName} placeholder="Ada Lovelace" />
         <Field icon={Mail} label="Email" type="email" value={email} onChange={setEmail} placeholder="you@wanderly.app" />
