@@ -37,7 +37,7 @@ export default function LoginPage() {
     <AuthShell 
       title="Welcome back" 
       subtitle="Sign in to keep planning your adventures."
-      image="/assets/alps.jpg"
+      image="/assets/alps.webp"
       quote="Wanderly turned my chaotic travel notes into a polished plan in a single click."
       author="Sora T., visited 38 countries"
     >
@@ -71,7 +71,7 @@ export function AuthShell({ title, subtitle, image, quote, author, children }: {
       <div className="flex flex-col justify-center px-6 py-6 sm:px-12 h-full overflow-y-auto">
         <div className="mx-auto w-full max-w-sm">
           <Link href="/" className="flex items-center gap-2 w-fit">
-            <img src="/logo.png" alt="Wanderly" className="h-9 w-9 rounded-xl object-cover invert dark:invert-0" />
+            <img src="/logo.webp" alt="Wanderly" className="h-9 w-9 rounded-xl object-cover invert dark:invert-0" />
             <span className="font-display text-lg font-bold">Wanderly</span>
           </Link>
           <div className="mt-8">

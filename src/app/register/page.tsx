@@ -40,7 +40,7 @@ export default function RegisterPage() {
     <AuthShell 
       title="Create your account" 
       subtitle="Plan unlimited trips with AI. Free forever."
-      image="/assets/amalfi.jpg"
+      image="/assets/amalfi.webp"
       quote="The AI completely understood the vibe we wanted. It felt like having a local guide in our pocket."
       author="Marcus P., traveled to Italy"
     >

@@ -145,7 +145,7 @@ export default function DashboardHome() {
                       id: t._id,
                       destination: t.destination,
                       country: t.country || "Custom trip",
-                      cover: t.cover || "/assets/trip1.jpg",
+                      cover: t.cover || "/assets/trip1.webp",
                       numDays: t.numberOfDays,
                       budget: t.budgetType,
                       interests: t.interests || [],

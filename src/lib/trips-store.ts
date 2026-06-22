@@ -36,12 +36,12 @@ const AUTH_KEY = "wanderly.user.v1";
 
 const CATS: Activity["category"][] = ["sight", "food", "culture", "adventure", "rest"];
 const COVERS = [
-  "/assets/trip1.jpg",
-  "/assets/trip2.jpg",
-  "/assets/trip3.jpg",
-  "/assets/trip4.jpg",
-  "/assets/trip5.jpg",
-  "/assets/trip6.jpg",
+  "/assets/trip1.webp",
+  "/assets/trip2.webp",
+  "/assets/trip3.webp",
+  "/assets/trip4.webp",
+  "/assets/trip5.webp",
+  "/assets/trip6.webp",
 ];
 
 const SAMPLE_TITLES = [

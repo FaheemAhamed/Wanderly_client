@@ -108,7 +108,7 @@ export function SiteNav() {
             }`}
           >
             <Link href="/" className="flex items-center gap-2 mr-6" onClick={() => setOpen(false)}>
-              <img src="/logo.png" alt="Wanderly" className="h-6 w-6 rounded-md object-cover invert" />
+              <img src="/logo.webp" alt="Wanderly" className="h-6 w-6 rounded-md object-cover invert" />
               <span className="font-display text-lg font-bold tracking-tight">Wanderly</span>
             </Link>
 

@@ -252,7 +252,7 @@ export default function TripPage({ params }: { params: Promise<{ id: string }> }
 
   // Visual layout helpers
   const weather = trip.weatherInfo || { temperature: 20, weather: "Clear", description: "clear sky" };
-  const coverUrl = trip.cover || "/assets/trip1.jpg";
+  const coverUrl = trip.cover || "/assets/trip1.webp";
 
   const formatCurrency = (usdVal: number) => {
     const usdToINR = trip.usdToINRRate || 83.5;

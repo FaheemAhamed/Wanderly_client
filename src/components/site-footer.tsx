@@ -53,7 +53,7 @@ export function SiteFooter() {
       <div className="mx-auto flex max-w-7xl flex-col md:flex-row justify-between gap-10 px-6 relative z-10">
         <div className="max-w-sm">
           <div className="flex items-center gap-3">
-            <img src="/logo.png" alt="Wanderly" className="h-8 w-8 rounded-lg object-cover invert mix-blend-screen" />
+            <img src="/logo.webp" alt="Wanderly" className="h-8 w-8 rounded-lg object-cover invert mix-blend-screen" />
             <span className="font-display text-lg font-bold">Wanderly</span>
           </div>
           <p className="mt-4 text-sm text-white/70">

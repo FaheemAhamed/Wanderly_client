@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRef, useState, useEffect } from "react";
 import { ArrowRight, MagicWand, CloudSun, MapPinLine, ArrowUpRight, Star } from "@phosphor-icons/react";
-import heroImg from "@/assets/hero-travel.jpg";
 import { SiteNav } from "@/components/site-nav";
 import { SiteFooter } from "@/components/site-footer";
 
@@ -73,7 +72,7 @@ function Hero() {
   return (
     <section id="home" ref={container} className="relative z-0 min-h-[100dvh] flex flex-col items-center justify-center text-center px-4 w-full overflow-hidden pt-24">
       <div className="absolute inset-0 -z-20 hero-bg">
-        <img src="/assets/travelcinematic.jpg" alt="Cinematic Background" className="w-full h-full object-cover mix-blend-luminosity opacity-40 contrast-125" />
+        <img src="/assets/travelcinematic.webp" alt="Cinematic Background" className="w-full h-full object-cover mix-blend-luminosity opacity-40 contrast-125" />
         <div className="absolute inset-0 bg-radial-[circle_at_center] from-transparent via-background/80 to-background" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
       </div>
@@ -87,7 +86,7 @@ function Hero() {
         Design the perfect trip 
         <span 
           className="inline-block w-[2.5em] h-[0.8em] rounded-full align-middle mx-3 bg-cover bg-center border border-white/10" 
-          style={{ backgroundImage: `url(/assets/location.jpg)` }}
+          style={{ backgroundImage: `url(/assets/location.webp)` }}
         /> 
         in seconds.
       </h1>
@@ -206,7 +205,7 @@ function Features() {
             <div className="absolute inset-0 z-0 p-1.5">
               <div className="relative h-full w-full rounded-[calc(2rem-6px)] overflow-hidden bg-black">
                 <img 
-                  src={`/assets/${f.imgSeed}.jpg`} 
+                  src={`/assets/${f.imgSeed}.webp`} 
                   alt={f.title} 
                   className="bento-img w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-1000" 
                 />
@@ -292,7 +291,7 @@ function HorizontalAccordions() {
             className={`relative h-full rounded-[2rem] overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] cursor-pointer ring-1 ring-white/10 ${isHovered ? 'w-full lg:w-[60%]' : 'w-16 lg:w-[13.33%]'}`}
           >
             <img 
-              src={`/assets/${slice.seed}.jpg`} 
+              src={`/assets/${slice.seed}.webp`} 
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isHovered ? 'grayscale-0 mix-blend-normal' : 'grayscale mix-blend-luminosity'}`} 
               alt={slice.title} 
             />
@@ -337,7 +336,7 @@ function Testimonials() {
                 <blockquote className="text-lg leading-relaxed text-white/80">"{t.comment}"</blockquote>
               </div>
               <figcaption className="mt-8 flex items-center gap-3 border-t border-white/5 pt-6">
-                <img src={`/assets/user${idx}.jpg`} className="h-10 w-10 rounded-full object-cover grayscale mix-blend-luminosity" alt={t.userName} />
+                <img src={`/assets/user${idx}.webp`} className="h-10 w-10 rounded-full object-cover grayscale mix-blend-luminosity" alt={t.userName} />
                 <div className="flex flex-col">
                   <span className="text-sm font-medium text-white">{t.userName}</span>
                   <span className="text-xs text-white/40 font-mono">EARLY ACCESS</span>
@@ -356,7 +355,7 @@ function CTASection() {
     <section className="px-4 md:px-8 max-w-[1400px] mx-auto w-full pt-16">
       <div className="p-1.5 rounded-[3rem] bg-white/5 ring-1 ring-white/10 shadow-elegant overflow-hidden relative">
         <img 
-          src="/assets/space-earth.jpg"
+          src="/assets/space-earth.webp"
           alt="Space background"
           className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-50"
         />
