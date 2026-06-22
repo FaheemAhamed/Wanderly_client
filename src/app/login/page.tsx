@@ -62,7 +62,7 @@ export function AuthShell({ title, subtitle, image, quote, author, children }: {
     <div className="flex flex-col lg:grid h-[100dvh] lg:grid-cols-2 overflow-hidden bg-background">
       <div className="relative h-48 shrink-0 lg:h-full overflow-hidden bg-muted">
         <img src={image} alt="Travel destination" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent lg:from-background/90" />
+        <div className="hidden lg:block absolute inset-0 bg-gradient-to-t from-background/90 via-background/20 to-transparent" />
         <div className="hidden lg:block absolute bottom-10 left-10 right-10 rounded-2xl glass p-6 shadow-elegant border border-white/10">
           <p className="font-display text-xl font-semibold text-white">"{quote}"</p>
           <p className="mt-3 text-sm text-white/80">— {author}</p>
