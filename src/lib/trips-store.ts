@@ -36,12 +36,12 @@ const AUTH_KEY = "wanderly.user.v1";
 
 const CATS: Activity["category"][] = ["sight", "food", "culture", "adventure", "rest"];
 const COVERS = [
-  "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=1600&q=80",
-  "https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=1600&q=80",
-  "https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=1600&q=80",
-  "https://images.unsplash.com/photo-1493558103817-58b2924bce98?w=1600&q=80",
-  "https://images.unsplash.com/photo-1530789253388-582c481c54b0?w=1600&q=80",
-  "https://images.unsplash.com/photo-1533105079780-92b9be482077?w=1600&q=80",
+  "/assets/trip1.jpg",
+  "/assets/trip2.jpg",
+  "/assets/trip3.jpg",
+  "/assets/trip4.jpg",
+  "/assets/trip5.jpg",
+  "/assets/trip6.jpg",
 ];
 
 const SAMPLE_TITLES = [

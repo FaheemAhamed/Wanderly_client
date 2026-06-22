@@ -73,7 +73,7 @@ function Hero() {
   return (
     <section id="home" ref={container} className="relative z-0 min-h-[100dvh] flex flex-col items-center justify-center text-center px-4 w-full overflow-hidden pt-24">
       <div className="absolute inset-0 -z-20 hero-bg">
-        <img src="https://picsum.photos/seed/travelcinematic/1920/1080" alt="Cinematic Background" className="w-full h-full object-cover mix-blend-luminosity opacity-40 contrast-125" />
+        <img src="/assets/travelcinematic.jpg" alt="Cinematic Background" className="w-full h-full object-cover mix-blend-luminosity opacity-40 contrast-125" />
         <div className="absolute inset-0 bg-radial-[circle_at_center] from-transparent via-background/80 to-background" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
       </div>
@@ -87,7 +87,7 @@ function Hero() {
         Design the perfect trip 
         <span 
           className="inline-block w-[2.5em] h-[0.8em] rounded-full align-middle mx-3 bg-cover bg-center border border-white/10" 
-          style={{ backgroundImage: `url(https://picsum.photos/seed/location/400/200)` }}
+          style={{ backgroundImage: `url(/assets/location.jpg)` }}
         /> 
         in seconds.
       </h1>
@@ -206,7 +206,7 @@ function Features() {
             <div className="absolute inset-0 z-0 p-1.5">
               <div className="relative h-full w-full rounded-[calc(2rem-6px)] overflow-hidden bg-black">
                 <img 
-                  src={`https://picsum.photos/seed/${f.imgSeed}/800/600`} 
+                  src={`/assets/${f.imgSeed}.jpg`} 
                   alt={f.title} 
                   className="bento-img w-full h-full object-cover mix-blend-luminosity group-hover:mix-blend-normal transition-all duration-1000" 
                 />
@@ -292,7 +292,7 @@ function HorizontalAccordions() {
             className={`relative h-full rounded-[2rem] overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] cursor-pointer ring-1 ring-white/10 ${isHovered ? 'w-full lg:w-[60%]' : 'w-16 lg:w-[13.33%]'}`}
           >
             <img 
-              src={`https://picsum.photos/seed/${slice.seed}/1000/800`} 
+              src={`/assets/${slice.seed}.jpg`} 
               className={`absolute inset-0 w-full h-full object-cover transition-all duration-1000 ${isHovered ? 'grayscale-0 mix-blend-normal' : 'grayscale mix-blend-luminosity'}`} 
               alt={slice.title} 
             />
@@ -337,7 +337,7 @@ function Testimonials() {
                 <blockquote className="text-lg leading-relaxed text-white/80">"{t.comment}"</blockquote>
               </div>
               <figcaption className="mt-8 flex items-center gap-3 border-t border-white/5 pt-6">
-                <img src={`https://picsum.photos/seed/user${idx}/100/100`} className="h-10 w-10 rounded-full object-cover grayscale mix-blend-luminosity" alt={t.userName} />
+                <img src={`/assets/user${idx}.jpg`} className="h-10 w-10 rounded-full object-cover grayscale mix-blend-luminosity" alt={t.userName} />
                 <div className="flex flex-col">
                   <span className="text-sm font-medium text-white">{t.userName}</span>
                   <span className="text-xs text-white/40 font-mono">EARLY ACCESS</span>
@@ -356,7 +356,7 @@ function CTASection() {
     <section className="px-4 md:px-8 max-w-[1400px] mx-auto w-full pt-16">
       <div className="p-1.5 rounded-[3rem] bg-white/5 ring-1 ring-white/10 shadow-elegant overflow-hidden relative">
         <img 
-          src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072&auto=format&fit=crop"
+          src="/assets/space-earth.jpg"
           alt="Space background"
           className="absolute inset-0 w-full h-full object-cover mix-blend-luminosity opacity-50"
         />
