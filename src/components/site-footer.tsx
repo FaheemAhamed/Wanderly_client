@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Sparkles, ArrowRight } from "lucide-react";
-import heroImg from "@/assets/hero-travel.jpg";
 import { useRef } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
