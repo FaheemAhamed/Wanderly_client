@@ -281,14 +281,15 @@ function HorizontalAccordions() {
   ];
 
   return (
-    <section className="px-4 md:px-8 max-w-[1400px] mx-auto w-full h-[600px] flex gap-2 overflow-hidden">
+    <section className="px-4 md:px-8 max-w-[1400px] mx-auto w-full h-[600px] flex flex-col lg:flex-row gap-2 overflow-hidden">
       {slices.map((slice, i) => {
         const isHovered = hoveredIndex === i;
         return (
           <div 
             key={i}
             onMouseEnter={() => setHoveredIndex(i)}
-            className={`relative h-full rounded-[2rem] overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] cursor-pointer ring-1 ring-white/10 ${isHovered ? 'w-full lg:w-[60%]' : 'w-16 lg:w-[13.33%]'}`}
+            onClick={() => setHoveredIndex(i)}
+            className={`relative rounded-[2rem] overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.32,0.72,0,1)] cursor-pointer ring-1 ring-white/10 ${isHovered ? 'flex-1 lg:flex-none lg:w-[60%] lg:h-full' : 'h-20 lg:h-full lg:w-[13.33%]'}`}
           >
             <img 
               src={`/assets/${slice.seed}.webp`} 
@@ -303,8 +304,8 @@ function HorizontalAccordions() {
             </div>
             
             {!isHovered && (
-              <div className="absolute inset-0 flex items-end justify-center pb-8">
-                <span className="font-display text-xl text-white/50 -rotate-90 origin-left whitespace-nowrap translate-x-3">{slice.title}</span>
+              <div className="absolute inset-0 flex items-center justify-start px-8 lg:items-end lg:justify-center lg:px-0 lg:pb-8">
+                <span className="font-display text-xl text-white/50 lg:-rotate-90 lg:origin-left whitespace-nowrap lg:translate-x-3">{slice.title}</span>
               </div>
             )}
           </div>
