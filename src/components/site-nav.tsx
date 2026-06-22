@@ -131,7 +131,7 @@ export function SiteNav() {
               })}
             </div>
 
-            <div className="hidden items-center gap-2 ml-6 md:flex">
+            <div className="flex items-center gap-2 ml-auto md:ml-6">
               {user ? (
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
@@ -169,24 +169,24 @@ export function SiteNav() {
               ) : (
                 <Link 
                   href="/login" 
-                  className="group relative inline-flex items-center justify-center rounded-full bg-white text-black px-5 py-2 text-sm font-medium transition-spring hover:scale-[0.98]"
+                  className="hidden md:inline-flex group relative items-center justify-center rounded-full bg-white text-black px-5 py-2 text-sm font-medium transition-spring hover:scale-[0.98]"
                 >
                   Sign in
                 </Link>
               )}
-            </div>
 
-            <div className="md:hidden flex items-center ml-4">
-              <button
-                className="relative h-10 w-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-all z-[60]"
-                onClick={() => setOpen((v) => !v)}
-                aria-label="Menu"
-              >
-                {/* Hamburger Morph Implementation using span lines */}
-                <span className={`absolute h-[1.5px] w-4 bg-foreground transition-spring ${open ? "rotate-45" : "-translate-y-1.5"}`} />
-                <span className={`absolute h-[1.5px] w-4 bg-foreground transition-spring ${open ? "opacity-0 scale-x-0" : "opacity-100"}`} />
-                <span className={`absolute h-[1.5px] w-4 bg-foreground transition-spring ${open ? "-rotate-45" : "translate-y-1.5"}`} />
-              </button>
+              <div className="md:hidden flex items-center ml-2">
+                <button
+                  className="relative h-10 w-10 flex items-center justify-center rounded-full bg-white/5 hover:bg-white/10 transition-all z-[60]"
+                  onClick={() => setOpen((v) => !v)}
+                  aria-label="Menu"
+                >
+                  {/* Hamburger Morph Implementation using span lines */}
+                  <span className={`absolute h-[1.5px] w-4 bg-foreground transition-spring ${open ? "rotate-45" : "-translate-y-1.5"}`} />
+                  <span className={`absolute h-[1.5px] w-4 bg-foreground transition-spring ${open ? "opacity-0 scale-x-0" : "opacity-100"}`} />
+                  <span className={`absolute h-[1.5px] w-4 bg-foreground transition-spring ${open ? "-rotate-45" : "translate-y-1.5"}`} />
+                </button>
+              </div>
             </div>
           </nav>
         </div>
