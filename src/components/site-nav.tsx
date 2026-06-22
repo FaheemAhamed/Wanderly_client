@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useUser, setUser } from "@/lib/trips-store";
 import { List, X } from "@phosphor-icons/react";
+import { LogOut } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,6 +23,16 @@ export function SiteNav() {
   const user = useUser();
   const router = useRouter();
   const pathname = usePathname();
+  const [showSignoutModal, setShowSignoutModal] = useState(false);
+
+  function handleSignOut() {
+    if (typeof window !== "undefined") {
+      localStorage.removeItem("token");
+    }
+    setUser(null);
+    router.push("/");
+    setShowSignoutModal(false);
+  }
 
   // Close mobile nav on route changes
   useEffect(() => {
@@ -146,7 +157,10 @@ export function SiteNav() {
                     </DropdownMenuItem>
                     <DropdownMenuItem 
                       className="w-full px-3 py-2.5 mt-1 cursor-pointer text-red-400 hover:bg-red-400/10 focus:bg-red-400/10 rounded-xl outline-none transition-colors text-sm"
-                      onClick={() => { setUser(null); router.push("/"); }}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setShowSignoutModal(true);
+                      }}
                     >
                       Sign out
                     </DropdownMenuItem>
@@ -226,6 +240,41 @@ export function SiteNav() {
           </div>
         </div>
       </div>
+
+      {/* Sign-out Confirmation Modal */}
+      {showSignoutModal && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+          <div 
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity"
+            onClick={() => setShowSignoutModal(false)}
+          />
+          <div className="relative z-10 w-full max-w-sm animate-in fade-in zoom-in-95 duration-200 overflow-hidden rounded-[2rem] bg-zinc-900 p-6 shadow-2xl border border-white/10 text-white">
+            <div className="mb-6 flex flex-col items-center text-center">
+              <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-red-500/10 text-red-500">
+                <LogOut className="h-6 w-6" />
+              </div>
+              <h3 className="font-display text-xl font-bold tracking-tight">Sign out</h3>
+              <p className="mt-2 text-sm text-white/60">
+                Are you sure you want to sign out? You will need to log back in to view your itineraries.
+              </p>
+            </div>
+            <div className="flex gap-3">
+              <button
+                onClick={() => setShowSignoutModal(false)}
+                className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm font-medium hover:bg-white/10 transition-colors cursor-pointer"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleSignOut}
+                className="flex-1 rounded-xl bg-red-500 px-4 py-3 text-sm font-medium text-white hover:opacity-90 transition-opacity shadow-sm cursor-pointer"
+              >
+                Sign out
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
