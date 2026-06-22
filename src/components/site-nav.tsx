@@ -13,7 +13,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export function SiteNav() {
   const [open, setOpen] = useState(false);
@@ -125,6 +125,7 @@ export function SiteNav() {
                 <DropdownMenu>
                   <DropdownMenuTrigger className="outline-none">
                     <Avatar className="h-9 w-9 ring-1 ring-white/10 hover:ring-white/30 transition-all cursor-pointer">
+                      {user.photoURL && <AvatarImage src={user.photoURL} alt={user.name} className="object-cover" referrerPolicy="no-referrer" />}
                       <AvatarFallback className="bg-white/10 text-xs font-medium text-white">
                         {user.name ? user.name.substring(0, 2).toUpperCase() : "U"}
                       </AvatarFallback>

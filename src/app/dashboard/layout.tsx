@@ -95,8 +95,12 @@ export default function DashboardLayout({
 
             <div className="mt-auto border-t border-sidebar-border pt-4">
               <div className="flex items-center gap-3">
-                <div className="grid h-9 w-9 place-items-center rounded-full bg-sidebar-accent text-sidebar-foreground font-medium">
-                  {user?.name?.charAt(0) ?? "E"}
+                <div className="grid h-9 w-9 place-items-center rounded-full bg-sidebar-accent text-sidebar-foreground font-medium overflow-hidden">
+                  {user?.photoURL ? (
+                    <img src={user.photoURL} alt={user.name} className="h-full w-full object-cover" referrerPolicy="no-referrer" />
+                  ) : (
+                    user?.name?.charAt(0) ?? "E"
+                  )}
                 </div>
                 <div className="flex-1 overflow-hidden">
                   <p className="truncate text-sm font-medium">{user?.name ?? "Explorer"}</p>

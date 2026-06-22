@@ -121,13 +121,14 @@ export function SocialButtons() {
       
       const data = await api.post("/auth/google", { 
         name: user.displayName || "Explorer", 
-        email: user.email 
+        email: user.email,
+        photoURL: user.photoURL,
       });
 
       if (typeof window !== "undefined") {
         localStorage.setItem("token", data.token);
       }
-      setUser({ name: data.user.name, email: data.user.email });
+      setUser({ name: data.user.name, email: data.user.email, photoURL: user.photoURL || undefined });
       toast.success("Welcome to Wanderly ✨");
       router.push("/dashboard");
     } catch (error: any) {

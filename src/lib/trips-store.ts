@@ -188,7 +188,7 @@ export function useTrip(id: string) {
 }
 
 /* Auth (mock) */
-export type User = { name: string; email: string };
+export type User = { name: string; email: string; photoURL?: string };
 
 export function getUser(): User | null {
   if (typeof window === "undefined") return null;
